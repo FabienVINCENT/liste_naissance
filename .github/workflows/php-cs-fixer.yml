@@ -2,7 +2,7 @@ name: Php-cs-fixer
 
 on:
     push:
-        branches: [ master ]
+        branches: [ main ]
     pull_request:
     workflow_dispatch:
 
