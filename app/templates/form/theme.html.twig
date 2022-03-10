@@ -1,0 +1,18 @@
+{% use 'tailwind_2_layout.html.twig' %}
+
+{% block form_row %}
+    {% set row_class = row_class|default('mt-2 px-3 flex justify-start gap-5 items-center') %}
+    {{ parent() }}
+{% endblock form_row %}
+
+{% block form_label %}
+    {% set label_class = label_class|default('font-semibold text-zinc-600 w-40') %}
+    {{ parent() }}
+{% endblock form_label %}
+
+{%- block button_row -%}
+    {% set row_class = row_class|default('mt-2 px-3 flex justify-end gap-5 items-center') %}
+    <div{% with {attr: row_attr} %}{{ block('attributes') }}{% endwith %} class="{{ row_class }}">
+        {{- form_widget(form) -}}
+    </div>
+{%- endblock button_row -%}

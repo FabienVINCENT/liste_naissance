@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block body %}
+<h1 class="text-center mb-2 mt-2 text-cyan-500 font-bold text-4xl tracking-widest mb-2">Se connecter</h1>
+<form method="post">
+    {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    {% if app.user %}
+        <div class="mb-3">
+            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+        </div>
+    {% endif %}
+
+    <div class="mt-2 px-3 flex justify-start gap-5 items-center">
+        <label class="font-semibold text-zinc-600 w-40 required" for="inputEmail">Email</label>
+        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="mt-1 w-full" autocomplete="email" required autofocus>
+    </div>
+
+    <div class="mt-2 px-3 flex justify-start gap-5 items-center">
+        <label class="font-semibold text-zinc-600 w-40 required" for="inputPassword">Mot de passe</label>
+        <input type="password" name="password" id="inputPassword" class="mt-1 w-full" autocomplete="current-password" required>
+    </div>
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+    <div class="mt-2 px-3 flex justify-start gap-5 items-center">
+    </div>
+
+    <div class="mt-2 px-3 flex justify-between gap-5 items-center">
+        <label>
+            <input type="checkbox" name="_remember_me"> Se souvenir de moi
+        </label>
+        <button class="btn btn-lg btn-primary" type="submit">
+            Connexion
+        </button>
+    </div>
+</form>
+{% endblock %}

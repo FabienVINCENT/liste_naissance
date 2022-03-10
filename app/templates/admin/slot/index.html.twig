@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration Slot{% endblock %}
+
+{% block body %}
+    <div class="flex justify-end my-5">
+        <a href="{{ path('admin_slot_new') }}" class="btn btn-primary">Nouveau slot</a>
+    </div>
+    <table class="table-auto divide-y divide-gray-200 w-full">
+        <thead>
+        <tr>
+            <th class="text-left">Id</th>
+            <th class="text-left">slot</th>
+            <th class="text-left">Actions</th>
+        </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200">
+        {% for slot in slots %}
+            <tr>
+                <td>{{ slot.id }}</td>
+                <td>{{ slot.slot }}</td>
+                <td>
+                    <a href="{{ path('admin_slot_edit', {id: slot.id}) }}" class="btn btn-primary btn-sm">Editer</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

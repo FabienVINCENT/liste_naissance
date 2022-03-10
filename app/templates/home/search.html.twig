@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recherche{% endblock %}
+
+{% block body %}
+    <div class="grid grid-cols-1">
+        {% set articlesOnline = articles|filter(a => a.status =='online') %}
+
+        <div>
+            <h2 class="text-center mb-2 mt-2 text-cyan-500 font-bold text-4xl tracking-widest">Recherche</h2>
+
+            <div class="my-5">
+                {{ form_start(form) }}
+                    <div class="flex w-100 justify-center items-center gap-5">
+                        {{ form_row(form.search) }}
+                        {{ form_row(form.find) }}
+                    </div>
+                {{ form_end(form) }}
+            </div>
+
+            {% if articlesOnline|length > 0 %}
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-5">
+                {% for article in articlesOnline| slice(0,12) %}
+                    {{ include('components/article-card.html.twig', {article: article}) }}
+                {% endfor %}
+            </div>
+            {% else %}
+                <p class="text-center">Aucun articles trouvés</p>
+            {% endif %}
+        </div>
+
+    </div>
+{% endblock %}

@@ -1,0 +1,5 @@
+/mysql
+/.idea
+/app/vendor
+/app/node_modules
+/docker

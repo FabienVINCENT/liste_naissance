@@ -1,0 +1,38 @@
+version: '3.9'
+
+services:
+  server:
+    build:
+      context: .
+      dockerfile: ./docker/server/Dockerfile
+    container_name: '${APP_NAME}-server'
+    ports:
+      - '8080:80'
+    working_dir: /var/www/html
+    volumes:
+      - ./app:/var/www/html
+      - ./docker/server/apache/sites-enabled:/etc/apache2/sites-enabled
+      - ./docker/server/php/php.ini:/usr/local/etc/php/conf.d/extra-php-config.ini
+    depends_on:
+      - database
+###> doctrine/doctrine-bundle ###
+  database:
+    image: mariadb
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: ${MYSQL_ROOT_PASS:-ChangeMe}
+      MYSQL_USER:  ${MYSQL_USER:-ChangeMe}
+      MYSQL_PASSWORD: ${MYSQL_PASS:-ChangeMe}
+      MYSQL_DATABASE: ${MYSQL_DB:-ChangeMe}
+    healthcheck:
+      test: mysqladmin ping -h 127.0.0.1 -u MYSQL_USER --password=MYSQL_PASS
+      interval: 5s
+      retries: 5
+    volumes:
+      - db-data:/var/lib/mysql
+###< doctrine/doctrine-bundle ###
+
+volumes:
+###> doctrine/doctrine-bundle ###
+  db-data:
+###< doctrine/doctrine-bundle ###

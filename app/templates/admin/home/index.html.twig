@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration{% endblock %}
+
+{% block body %}
+    <div class="flex gap-5 justify-center my-5">
+        <a href="{{ path('admin_article_index') }}" class="btn btn-primary">Articles</a>
+        <a href="{{ path('admin_tag_index') }}" class="btn btn-primary">Tags</a>
+        <a href="{{ path('admin_slot_index') }}" class="btn btn-primary">Slot</a>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5">
+        {% for article in articlesReserved %}
+            {{ include('components/article-reservation.html.twig', {article: article, admin: true}) }}
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration Article{% endblock %}
+
+{% block body %}
+    <div class="flex justify-end items-center my-5">
+        {{ form(filter) }}
+        <div class="ml-5">
+            <a href="{{ path('admin_article_index') }}" class="btn btn-primary">Reset filtre</a>
+            <a href="{{ path('admin_article_new') }}" class="btn btn-primary">Nouvel article</a>
+        </div>
+    </div>
+    <table class="table-auto divide-y divide-gray-200 w-full">
+        <thead>
+        <tr>
+            <th class="text-left">Id</th>
+            <th class="text-left">Image</th>
+            <th class="text-left">Titre</th>
+            <th class="text-left">Prix</th>
+            <th class="text-left">Tag</th>
+            <th class="text-left">status</th>
+            <th class="text-left">Actions</th>
+        </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200">
+        {% for article in articles %}
+            <tr>
+                <td>{{ article.id }}</td>
+                <td>
+                    {% if article.coverFilename %}
+                        <figure class="w-12">
+                            <img src="{{ asset('uploads/'~article.coverFilename) }}" alt="{{ article.coverFilename }}">
+                        </figure>
+                    {% endif %}
+                </td>
+                <td>{{ article.title }}</td>
+                <td>{{ article.price }}</td>
+                <td>{{ article.tag.label }}</td>
+                <td>
+                    {{ article.status }}
+                    {% if article.reservedBy %}
+                         - réservé par :{{ article.reservedBy.email }}
+                    {% endif %}
+                    {% if workflow_can(article, 'to_draft') %}
+                        <a href="{{ path('admin_article_state', {id: article.id, state: 'to_draft'}) }}" onclick="return confirm('Voulez-vous vraiment changer le statut ?')" class="btn btn-actions btn-sm">To draft</a>
+                    {% endif %}
+                    {% if workflow_can(article, 'to_online') %}
+                        <a href="{{ path('admin_article_state', {id: article.id, state: 'to_online'}) }}" onclick="return confirm('Voulez-vous vraiment changer le statut ?')" class="btn btn-actions btn-sm">To online</a>
+                    {% endif %}
+                    {% if workflow_can(article, 'clear_reservation') %}
+                        <a href="{{ path('admin_article_state', {id: article.id, state: 'clear_reservation'}) }}" onclick="return confirm('Voulez-vous vraiment changer le statut ?')" class="btn btn-actions btn-sm">Clear reservation</a>
+                    {% endif %}
+                    {% if workflow_can(article, 'to_received') %}
+                        <a href="{{ path('admin_article_state', {id: article.id, state: 'to_received'}) }}" onclick="return confirm('Voulez-vous vraiment changer le statut ?')" class="btn btn-actions btn-sm">to_received</a>
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{{ path('admin_article_edit', {id: article.id}) }}" class="btn btn-primary btn-sm">Editer</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

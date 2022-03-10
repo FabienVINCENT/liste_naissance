@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration Tag{% endblock %}
+
+{% block body %}
+    <div class="flex justify-end my-5">
+        <a href="{{ path('admin_tag_new') }}" class="btn btn-primary">Nouveau tag</a>
+    </div>
+    <table class="table-auto divide-y divide-gray-200">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Label</th>
+            <th>Articles</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200">
+        {% for tag in tags %}
+        <tr>
+            <td>{{ tag.id }}</td>
+            <td>{{ tag.label }}</td>
+            <td>{{ tag.articles|length }}</td>
+            <td>
+                <a href="{{ path('admin_tag_edit', {id: tag.id}) }}" class="btn btn-primary btn-sm">Editer</a>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

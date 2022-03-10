@@ -1,0 +1,21 @@
+Email: E-mail
+Firstname: Prénom
+Lastname: Nom
+Password: Mot de passe
+Repeat password: Retapez le mot de passe
+Register: S'enregistrer
+Save: Sauvegarder
+
+
+The password fields must match.: Les mots de passe doivent être identiques.
+Please enter a password: Entrez un mot de passe
+
+search_placeholder: Recherche ...
+search: Rechercher
+
+clear_reservation_success: Annulation de la réservation. Peut-être la prochaine fois :(
+clear_reservation_error: Erreur lors de l'annulation de la réservation
+change_state_draft: Changement du statut "brouillon" effectué.
+change_state_online: Changement du statut "en ligne" effectué.
+change_state_reserved: Changement du statut "réservé" effectué.
+change_state_received: Changement du statut "reçu" effectué.

@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Réservations{% endblock %}
+
+{% block body %}
+    {% if (user.articles|length == 0) %}
+        <p class="text-center">Aucune réservation.</p>
+    {% else %}
+        <h2 class="text-center mb-2 mt-2 text-cyan-500 font-bold text-4xl tracking-widest">Mes réservations</h2>
+        <div class="text-zinc-800 font-medium text-center py-5">{{ reservation_slot |raw }}</div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5">
+            {% for article in user.articles|sort((a, b) => a.reservedAt < b.reservedAt) %}
+                {{ include('components/article-reservation.html.twig', {article: article, admin: false}) }}
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}Accueil{% endblock %} - Liste de Naissance</title>
+    <link rel="icon"
+          href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</head>
+<body class="min-h-screen flex flex-col bg-amber-50" id="app">
+    {# On ajoute cette class meme si pas utiliser car le moteur JIT ne va pas passer les erreur de formulaire #}
+    {# text-red-700 #}
+    {% include  'base/navbar.html.twig' %}
+    <div class="container px-2 my-5 mx-auto flex-grow">
+        {# read and display all flash messages (flash-success & flash-error)#}
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="flash-{{ label }} mb-5">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+
+        {% block body %}{% endblock %}
+    </div>
+
+    {% include  'base/footer.html.twig' %}
+    <script>
+        function reserveArticle (articleId, message) {
+            fetch(`/article/${articleId}`, {
+                method: 'POST',
+                body: JSON.stringify({ message: message })
+            })
+                .then((response) => {
+                    return response.json()
+                })
+                .then((data) => {
+                    if (data.error_description) {
+                        location.reload()
+                        return
+                    }
+                    window.location.href = '{{ path('app_profil_reservations') }}';
+                })
+        }
+
+        function handleOverflow(value) {
+            if(value) {
+                document.getElementById('app').classList.add('overflow-hidden')
+            } else {
+                document.getElementById('app').classList.remove('overflow-hidden');
+            }
+        }
+    </script>
+</body>
+</html>

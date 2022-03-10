@@ -1,0 +1,8 @@
+/mysql
+/.idea
+
+/.env
+
+
+
+/app/.php-cs-fixer.cache

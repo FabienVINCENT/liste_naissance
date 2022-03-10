@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+    {% set nbArticleRandom = 5 %}
+
+    <div class="text-zinc-800 font-medium text-center py-5">{{ home_slot |raw }}</div>
+
+    <div class="grid grid-cols-1">
+    {% for tag in tags %}
+        {% set articles = tag.articles|filter(a => a.status =='online') %}
+        {% set articlesLength = articles|length %}
+
+        {% if articlesLength > 0 %}
+            <div class="flex flex-col justify-center items-center">
+                <h2 class="text-center mb-2 mt-2 text-cyan-500 font-bold text-4xl tracking-widest"><a href="{{ path('app_tag_show', {id: tag.id}) }}">{{ tag.label }}</a></h2>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-5">
+                    {% for i in 0..(nbArticleRandom -1) %}
+                        {% if articles|length > 0 %}
+                            {% set article = random(articles) %}
+                            {% set articles = articles | filter((a) => a.id != article.id) %}
+                            {{ include('components/article-card.html.twig', {article: article, i:i}) }}
+                        {% endif %}
+                    {% endfor %}
+                    <div class="w-full h-80 min-h-full flex flex-col bg-white justify-between items-center shadow-md rounded-2xl overflow-hidden order-last
+                        col-start-{{ min(2,(articlesLength%2)+1) }} row-start-{{ articlesLength > 1 ? '2' : '1' }}
+                        md:col-start-{{ min(3,articlesLength+1) }} md:row-start-1
+                        lg:col-start-{{ min(4,articlesLength+1) }} lg:row-start-1
+                        xl:col-start-auto xl:row-start-auto
+                    ">
+                        <a href="{{ path('app_tag_show', {id: tag.id}) }}" class="flex flex-col justify-center items-center h-full">
+                            <ion-icon class="text-zinc-600" name="ellipsis-horizontal-circle-outline" style="font-size: 64px;"></ion-icon>
+                        </a>
+                        <div class="w-full bg-bluegray px-2 pb-2 rounded-t-maxi flex flex-col justify-start items-center">
+                            <div class="text-center w-4/5 mt-4">
+                                <span class="text-white font-bold text-lg">Plus d'articles</span>
+                                <div>
+                                    <span class="text-white font-medium tracking-wide">&nbsp;</span>
+                                </div>
+                                <a href="{{ path('app_tag_show', {id: tag.id}) }}" class="btn btn-actions">Voir</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+
+    </div>
+{% endblock %}

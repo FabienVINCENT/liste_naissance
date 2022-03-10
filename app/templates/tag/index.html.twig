@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ tag.label }}{% endblock %}
+
+{% block body %}
+    {% set articlesDispo = tag.articles|filter(a => a.status =='online') %}
+    {% set articlesNonDispo = tag.articles|filter(a => a.status =='reserved' or a.status =='received') %}
+
+    {% if articlesDispo|length > 0 %}
+        <div>
+            <h2 class="text-center text-cyan-500 font-bold text-4xl tracking-widest">{{ tag.label }}</h2>
+            {% if tag.description %}<div class="text-center">{{ tag.description | raw }}</div>{% endif %}
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-10 mt-2">
+                {% for article in articlesDispo %}
+                    {{ include('components/article-card.html.twig', {article: article}) }}
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+    {% if articlesNonDispo|length > 0 %}
+        <div class="mt-5">
+            <h2 class="text-center text-cyan-500 font-bold text-4xl tracking-widest mb-5">Oups ! Trop tard</h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-10">
+                {% for article in articlesNonDispo %}
+                    {{ include('components/article-card.html.twig', {article: article}) }}
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
