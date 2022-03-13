@@ -1,19 +1,19 @@
 <div
     x-data="{show: false,message: null}"
     x-init="$watch('show', handleOverflow)"
-    class=" w-full flex flex-col bg-white justify-between items-center shadow-md rounded-2xl overflow-hidden
+    class="relative w-full h-80 flex flex-col bg-white justify-between items-center shadow-md rounded-2xl overflow-hidden
             {{ article.reservedBy ? 'order-last' : 'order-first' }}
             {% if i is defined and i >= 3 %}col-start-2 row-start-2 shadow-none md:col-start-auto md:row-start-auto md:shadow-md{% endif %}
             {% if i is defined and i >= 2 %}md:col-start-3 md:row-start-1 md:shadow-none lg:col-start-auto lg:row-start-auto lg:shadow-md{% endif %}
             {% if i is defined and i >= 3 %}lg:col-start-4 lg:row-start-1 lg:shadow-none xl:col-start-auto xl:row-start-auto xl:shadow-md{% endif %}
 ">
-    <figure class="rounded-2xl overflow-hidden mb-2">
+    <figure class="rounded-2xl z-10 mb-2 h-48 w-48 aspect-square flex">
         {% if article.coverFilename %}
             <img src="{{ asset('uploads/'~article.coverFilename) }}"
-                 alt="{{ article.coverFilename }}" class="rounded-2xl aspect-[2/2] object-cover hover:scale-110 transition-transform" />
+                 alt="{{ article.coverFilename }}" class="rounded-2xl aspect-square object-contain hover:scale-110 transition-transform" />
         {% endif %}
     </figure>
-    <div class="w-full bg-bluegray px-2 py-2 rounded-t-maxi flex flex-col justify-start items-center">
+    <div class="absolute bottom-0 w-full z-20 bg-bluegray px-2 pb-2 rounded-t-maxi flex flex-col justify-start items-center">
         <div class="text-center w-4/5 mt-4">
             <span class="text-white font-bold text-lg">{{ article.title }}</span>
         </div>
