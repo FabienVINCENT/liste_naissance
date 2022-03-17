@@ -75,7 +75,7 @@ class ArticleController extends AbstractController
     {
         if ($articlesReservationStateMachine->can($article, $state)) {
             $articlesReservationStateMachine->apply($article, $state);
-            $this->addFlash('success', 'change_state_'.$state);
+            $this->addFlash('success', 'Changement de statut effectué.');
         } else {
             $this->addFlash('error', "Erreur lors du changement d'état");
         }
