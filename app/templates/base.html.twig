@@ -6,6 +6,13 @@
     <title>{% block title %}Accueil{% endblock %} - Liste de Naissance</title>
     <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <link rel="icon" href="favicon.ico">
+    <meta property="og:title" content="{% block ogtitle %}Liste de naissance{% endblock %}">
+    <meta property="og:site_name" content="Liste de naissance">
+    <meta property="og:url" content="http://liste.fabien-vincent.fr">
+    <meta property="og:description" content="Mes parents sont pressés de m'accueillir, mais ils sont novices. Ils sont un peu débordés par tout ce qu'il faut prévoir.  J'ai fait une petite liste de ce qu'il me semble nécessaire pour les aider.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="http://localhost:8080/favicon.ico">
+
     {% block stylesheets %}
         {{ encore_entry_link_tags('app') }}
     {% endblock %}
