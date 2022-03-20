@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello UserController!{% endblock %}
+
+{% block body %}
+<ul>
+    {% for user in users %}
+    <li>
+        <span>{{ user.firstname }} {{ user.lastname }} ({{ user.email }})</span>
+        {% if user.articles|length > 0 %}
+        <details>
+            <summary>Réservations</summary>
+            <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5">
+                {% for article in user.articles %}
+                {{ include('components/article-reservation.html.twig', {article: article, admin: true}) }}
+                {% endfor %}
+            </div>
+        </details>
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
