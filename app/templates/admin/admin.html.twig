@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration{% endblock %}
+
+{% block body %}
+    <div class="flex gap-5 justify-center my-5">
+        <a href="{{ path('admin_article_index') }}" class="btn btn-primary">Articles</a>
+        <a href="{{ path('admin_tag_index') }}" class="btn btn-primary">Tags</a>
+        <a href="{{ path('admin_slot_index') }}" class="btn btn-primary">Slot</a>
+        <a href="{{ path('admin_user_index') }}" class="btn btn-primary">Utilisateurs</a>
+    </div>
+
+    {% block adminbody %}
+    {% endblock %}
+{% endblock %}
