@@ -24,7 +24,7 @@
                         {% endif %}
                     {% endfor %}
                     <div class="relative w-full z-20 h-80 min-h-full flex flex-col bg-white justify-between items-center shadow-md rounded-2xl overflow-hidden order-last
-                        col-start-{{ max(2,(articlesLength%2)+1) }} row-start-{{ articlesLength > 1 ? '2' : '1' }}
+                        col-start-{{ articlesLength == 2 ? '1' : '2' }} row-start-{{ articlesLength > 1 ? '2' : '1' }}
                         md:col-start-{{ min(3,articlesLength+1) }} md:row-start-1
                         lg:col-start-{{ min(4,articlesLength+1) }} lg:row-start-1
                         xl:col-start-auto xl:row-start-auto
