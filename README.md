@@ -1,4 +1,4 @@
 # liste_naissance
 
 ## Hébergement
-Application auto hébergée : [http://list.fabien-vincent.fr](http://list.fabien-vincent.fr)
+Application auto hébergée : [https://liste.fabien-vincent.fr/](https://liste.fabien-vincent.fr/)
